@@ -1,0 +1,10 @@
+bin
+.classpath
+.project
+.settings
+build
+bin
+dist
+manifest.mf
+.DS_Store
+nbproject
