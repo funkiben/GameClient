@@ -4,7 +4,7 @@ import net.funkitech.util.Location;
 
 
 public class FoV {
-	private final static int size = 3000;
+	private final static int size = 800;
 
 	private final Location location;
 	

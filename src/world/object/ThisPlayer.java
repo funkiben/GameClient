@@ -14,7 +14,7 @@ import net.funkitech.util.server.messaging.Message;
 
 public class ThisPlayer extends Player implements KeyListener {
 	
-	public static final float speed = 100F;
+	public static final float speed = 10f;
 	
 	private final FoV fov;
 	private Direction direction = null;

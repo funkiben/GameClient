@@ -14,6 +14,17 @@ import world.object.WorldObject;
 
 public class GameWindow extends JFrame {
 	
+	public static final int size = 800;
+	
+	private static int toChunkX(double x) {
+		return (int) (x / size) + (x >= 0 ? 1 : 0);
+	}
+	
+	private static int toChunkY(double y) {
+		return (int) (y / size) + (y >= 0 ? 1 : 0);
+	}
+	
+	
 	private static final long serialVersionUID = -2048254827556094505L;
 	
 	
@@ -36,7 +47,7 @@ public class GameWindow extends JFrame {
 		add(new DrawCanvas());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 800);
+		setSize(fov.getSize(), fov.getSize());
 		setResizable(false);
 		setVisible(true);
 		
@@ -92,8 +103,8 @@ public class GameWindow extends JFrame {
 		g.drawString("Objects: " + objects, 10, 30);
 		g.drawString("FPS: " + fps, 10, 45);
 		g.drawString("Loc: " + Main.player.getLocation(), 10, 60);
-		int cx = (int) (Main.player.getLocation().getX() / 800);
-		int cy = (int) (Main.player.getLocation().getY() / 800);
+		int cx = (int) (toChunkX(Main.player.getLocation().getX()));
+		int cy = (int) (toChunkY(Main.player.getLocation().getY()));
 		g.drawString("Chunk: " + cx + "," + cy, 10, 75);
 		
 	}
@@ -111,5 +122,6 @@ public class GameWindow extends JFrame {
 		}
 		
 	}
+	
 
 }
