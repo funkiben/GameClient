@@ -9,19 +9,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import world.World;
+import world.object.ThisPlayer;
 import world.object.WorldObject;
 
 
 public class GameWindow extends JFrame {
 	
-	public static final int size = 800;
+	public static final int chunkSize = 800;
 	
 	private static int toChunkX(double x) {
-		return (int) (x / size) + (x >= 0 ? 1 : 0);
+		return (int) (x / chunkSize) + (x >= 0 ? 1 : 0);
 	}
 	
 	private static int toChunkY(double y) {
-		return (int) (y / size) + (y >= 0 ? 1 : 0);
+		return (int) (y / chunkSize) + (y >= 0 ? 1 : 0);
 	}
 	
 	
@@ -37,6 +38,8 @@ public class GameWindow extends JFrame {
 	private int fps = 0;
 	private int fpsCounter = 0;
 	private int prevSec;
+	
+	public static volatile boolean isDrawing = false;
 	
 	public GameWindow(FoV fov, World world) {
 		super("Game");
@@ -68,21 +71,23 @@ public class GameWindow extends JFrame {
 			fpsCounter = 0;
 		}
 		
-		int draws = 0;
 		int objects = 0;
+		int draws = 0;
 		
-		world.doObjectAdding();
-		world.doObjectRemoving();
+		Main.player.update(frames);
+		
+		isDrawing = true;
 		
 		Iterator<WorldObject> iter = world.getObjects().iterator();
-		
 		while (iter.hasNext()) {
 			
 			objects++;
 			
 			WorldObject o = iter.next();
 			
-			o.update(frames);
+			if (!(o instanceof ThisPlayer)) {
+				o.update(frames);
+			}
 			
 			double x = (o.getX() - (fov.getX() - fov.getSize() / 2.0)) / fov.getSize() * getWidth();
 			double y = (o.getY() - (fov.getY() - fov.getSize() / 2.0)) / fov.getSize() * getHeight();
@@ -95,6 +100,9 @@ public class GameWindow extends JFrame {
 			}
 			
 		}
+		isDrawing = false;
+		
+		
 		
 		frames++;
 		
@@ -106,6 +114,8 @@ public class GameWindow extends JFrame {
 		int cx = (int) (toChunkX(Main.player.getLocation().getX()));
 		int cy = (int) (toChunkY(Main.player.getLocation().getY()));
 		g.drawString("Chunk: " + cx + "," + cy, 10, 75);
+		
+		
 		
 	}
 

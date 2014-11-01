@@ -8,10 +8,15 @@ import net.funkitech.util.server.messaging.MessageHandler;
 import net.funkitech.util.server.messaging.MessageListener;
 
 public class ServerMessageListener implements MessageListener {
-
+	
 	@MessageHandler(names = "worldobjectRemoved")
 	public void worldobjectRemoved(Integer id) {
-		Main.world.addObjectToRemove(id);
+		while (GameWindow.isDrawing) {
+			Main.sleep(10);
+		}
+		
+		Main.world.removeObject(id);
+		
 	}
 
 	@MessageHandler(names = "worldobject")
@@ -23,7 +28,12 @@ public class ServerMessageListener implements MessageListener {
 			object.setCustomData(customData);
 		} else {
 			object = WorldObjectType.newInstance(id, typeId, location, customData);
-			Main.world.addObjectToAdd(object);
+			
+			while (GameWindow.isDrawing) {
+				Main.sleep(10);
+			}
+			
+			Main.world.addObject(object);
 			
 			if (object instanceof ThisPlayer) {
 				Main.player = (ThisPlayer) object;
