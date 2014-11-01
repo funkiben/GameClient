@@ -18,11 +18,11 @@ public class GameWindow extends JFrame {
 	public static final int chunkSize = 800;
 	
 	private static int toChunkX(double x) {
-		return (int) (x / chunkSize) + (x >= 0 ? 1 : 0);
+		return (int) (x / chunkSize) - (x <= 0 ? 1 : 0);
 	}
 	
 	private static int toChunkY(double y) {
-		return (int) (y / chunkSize) + (y >= 0 ? 1 : 0);
+		return (int) (y / chunkSize) - (y <= 0 ? 1 : 0);
 	}
 	
 	
