@@ -8,6 +8,7 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import net.funkitech.util.Location;
 import world.World;
 import world.object.ThisPlayer;
 import world.object.WorldObject;
@@ -18,11 +19,35 @@ public class GameWindow extends JFrame {
 	public static final int chunkSize = 800;
 	
 	private static int toChunkX(double x) {
-		return (int) (x / chunkSize) - (x <= 0 ? 1 : 0);
+		if (x <= 0) {
+			x++;
+		}
+		
+		int cx = (int) (x / chunkSize);
+		
+		if (x <= 0) {
+			cx--;
+		}
+		
+		return cx;
 	}
 	
 	private static int toChunkY(double y) {
-		return (int) (y / chunkSize) - (y <= 0 ? 1 : 0);
+		if (y <= 0) {
+			y++;
+		}
+		
+		int cy = (int) (y / chunkSize);
+		
+		if (y <= 0) {
+			cy--;
+		}
+		
+		return cy;
+	}
+	
+	public static Location getChunkLocation(int x, int y) {
+		return new Location(x * chunkSize, y * chunkSize);
 	}
 	
 	
