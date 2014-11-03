@@ -55,8 +55,6 @@ public class ThisPlayer extends Player implements KeyListener, MouseListener, Mo
 	
 	@Override
 	public void draw(Graphics g, int x, int y) {
-		System.out.println(g.getClass().getSimpleName());
-		
 		draw(g, x, y, Color.BLUE);
 		
 		g.setColor(Color.BLACK);
