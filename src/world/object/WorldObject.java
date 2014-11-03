@@ -3,6 +3,9 @@ package world.object;
 import java.util.Arrays;
 
 import main.Drawable;
+import main.FoV;
+import main.GameWindow;
+import main.Main;
 import net.funkitech.util.Location;
 
 public abstract class WorldObject implements Drawable {
@@ -120,6 +123,23 @@ public abstract class WorldObject implements Drawable {
 		}
 		
 		return false;
+	}
+	
+	public Location getLocationOnScreen() {
+		FoV fov = Main.player.getFoV();
+		GameWindow frame = Main.gameWindow;
+		
+		double x = (getX() - (fov.getX() - fov.getSize() / 2.0)) / fov.getSize() * frame.getWidth();
+		double y = (getY() - (fov.getY() - fov.getSize() / 2.0)) / fov.getSize() * frame.getHeight();
+		
+		return new Location(x, y);
+	}
+	
+	public boolean isInView() {
+		GameWindow frame = Main.gameWindow;
+		Location loc = getLocationOnScreen();
+		
+		return loc.getX() + getLowestXPoint() < frame.getWidth() && loc.getX() + getHighestXPoint() > 0 && loc.getY() + getLowestYPoint() < frame.getHeight() && loc.getY() + getHighestYPoint() > 0;
 	}
 
 	public abstract void update(int frames);

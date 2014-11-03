@@ -49,6 +49,8 @@ public class Main {
 		
 		gameWindow = new GameWindow(player.getFoV(), world);
 		gameWindow.addKeyListener(player);
+		gameWindow.addMouseMotionListener(player);
+		gameWindow.addMouseListener(player);
 		
 	}
 	

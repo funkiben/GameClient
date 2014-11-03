@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 
 import main.FoV;
@@ -12,12 +15,13 @@ import net.funkitech.util.Location;
 import net.funkitech.util.server.messaging.Message;
 
 
-public class ThisPlayer extends Player implements KeyListener {
+public class ThisPlayer extends Player implements KeyListener, MouseListener, MouseMotionListener {
 	
-	public static final float speed = 50f;
+	public static final float speed = 25f;
 	
 	private final FoV fov;
 	private Direction direction = null;
+	private final Location mousePosition = new Location(0, 0);
 	
 	public ThisPlayer(int id, Location location, Object[] customData) {
 		super(id, location, customData);
@@ -51,7 +55,21 @@ public class ThisPlayer extends Player implements KeyListener {
 	
 	@Override
 	public void draw(Graphics g, int x, int y) {
+		System.out.println(g.getClass().getSimpleName());
+		
 		draw(g, x, y, Color.BLUE);
+		
+		g.setColor(Color.BLACK);
+		
+		double angle = new Location(0, 0).angleBetween(getLocationOnScreen().subtract(mousePosition)) + 90;
+		
+		Location loc1 = new Location(0, -40).rotate(angle).add(x, y);
+		Location loc2 = new Location(-10, -30).rotate(angle).add(x, y);
+		Location loc3 = new Location(10, -30).rotate(angle).add(x, y);
+		
+		g.drawLine((int) loc1.getX(), (int) loc1.getY(), (int) loc2.getX(), (int) loc2.getY());
+		g.drawLine((int) loc1.getX(), (int) loc1.getY(), (int) loc3.getX(), (int) loc3.getY());
+		
 		
 	}
 	
@@ -60,7 +78,9 @@ public class ThisPlayer extends Player implements KeyListener {
 			return new Location(0, 0);
 		}
 		
-		return direction.getDelta();
+		double angle = new Location(0, 0).angleBetween(getLocationOnScreen().subtract(mousePosition)) + 90;
+		
+		return direction.getDelta().rotate(angle);
 	}
 
 	@Override
@@ -83,6 +103,12 @@ public class ThisPlayer extends Player implements KeyListener {
 		}
 		
 	}
+	
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		mousePosition.set(e.getX(), e.getY());
+	}
+	
 	
 	public enum Direction {
 		
@@ -113,5 +139,23 @@ public class ThisPlayer extends Player implements KeyListener {
 	
 	@Override
 	public void keyTyped(KeyEvent e) { }
+
+	@Override
+	public void mouseClicked(MouseEvent e) { }
+
+	@Override
+	public void mousePressed(MouseEvent e) { }
+
+	@Override
+	public void mouseReleased(MouseEvent e) { }
+
+	@Override
+	public void mouseEntered(MouseEvent e) { }
+
+	@Override
+	public void mouseExited(MouseEvent e) { }
+
+	@Override
+	public void mouseDragged(MouseEvent e) { }
 
 }

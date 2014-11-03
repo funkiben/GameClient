@@ -34,6 +34,11 @@ public class Location implements java.io.Serializable {
 		y = location.y;
 	}
 	
+	public void set(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	public Location add(double x, double y) {
 		return new Location(this.x + x, this.y + y);
 	}
@@ -63,9 +68,10 @@ public class Location implements java.io.Serializable {
 	}
 	
 	public Location rotate(double deg) {
+		deg = Math.toRadians(deg);
 		double s = Math.sin(deg);
 		double c = Math.cos(deg);
-		return new Location(c * x - s * y, s * x + c * y);
+		return new Location(x * c - y * s, x * s + y * c);
 	}
 	
 	public double angleBetween(Location location) {
@@ -78,6 +84,19 @@ public class Location implements java.io.Serializable {
 	
 	public double distance(Location location) {
 		return Math.sqrt(distanceSqrt(location));
+	}
+	
+	public double length() {
+		return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+	}
+	
+	public Location normalize() {
+		double length = length();
+
+        x /= length;
+        y /= length;
+        
+        return new Location(x, y);
 	}
 	
 	@Override
