@@ -49,8 +49,6 @@ public class World {
 		return objectMap.get(id);
 	}
 	
-
-	
 	
 
 }

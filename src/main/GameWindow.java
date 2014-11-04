@@ -86,6 +86,13 @@ public class GameWindow extends JFrame {
 		return fov;
 	}
 	
+	public Location toWorldLocation(int lx, int ly) {
+		double x = ((lx + (fov.getX() - fov.getSize() / 2.0)) * fov.getSize() / getWidth());
+		double y = ((ly + (fov.getY() - fov.getSize() / 2.0)) * fov.getSize() / getHeight());
+		
+		return new Location(x, y);
+	}
+	
 	public void drawObjects(Graphics g) {
 		
 		fpsCounter++;

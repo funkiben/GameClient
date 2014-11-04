@@ -14,7 +14,6 @@ import main.Main;
 import net.funkitech.util.Location;
 import net.funkitech.util.server.messaging.Message;
 
-
 public class ThisPlayer extends Player implements KeyListener, MouseListener, MouseMotionListener {
 	
 	public static final float speed = 25f;
@@ -90,6 +89,12 @@ public class ThisPlayer extends Player implements KeyListener, MouseListener, Mo
 				
 			}
 		}
+		
+		try {
+			Main.socket.sendMessage(new Message("keyPressed", e.getKeyChar()));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -98,6 +103,12 @@ public class ThisPlayer extends Player implements KeyListener, MouseListener, Mo
 			if (d.getChar() == e.getKeyChar() && d == direction) {
 				direction = null;
 			}
+		}
+		
+		try {
+			Main.socket.sendMessage(new Message("keyReleased", e.getKeyChar()));
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 		
 	}
@@ -134,18 +145,30 @@ public class ThisPlayer extends Player implements KeyListener, MouseListener, Mo
 		}
 		
 	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		try {
+			Main.socket.sendMessage(new Message("mouseButtonPressed", e.getButton(), Main.gameWindow.toWorldLocation(e.getX(), e.getY())));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		try {
+			Main.socket.sendMessage(new Message("mouseButtonReleased", e.getButton(), Main.gameWindow.toWorldLocation(e.getX(), e.getY())));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
 	
 	@Override
 	public void keyTyped(KeyEvent e) { }
 
 	@Override
 	public void mouseClicked(MouseEvent e) { }
-
-	@Override
-	public void mousePressed(MouseEvent e) { }
-
-	@Override
-	public void mouseReleased(MouseEvent e) { }
 
 	@Override
 	public void mouseEntered(MouseEvent e) { }
