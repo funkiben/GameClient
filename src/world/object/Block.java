@@ -8,12 +8,12 @@ import net.funkitech.util.Location;
 
 public class Block extends WorldObject {
 	
-	public static Location[] getBounds(int width, int height) {
+	public static Location[] newBounds(int width, int height) {
 		return new Location[] {
-			new Location(width, height),
-			new Location(-width, height),
-			new Location(-width, -height),
-			new Location(width, -height)
+			new Location(width/2, height/2),
+			new Location(-width/2, height/2),
+			new Location(-width/2, -height/2),
+			new Location(width/2, -height/2)
 		};
 	}
 	
@@ -21,10 +21,12 @@ public class Block extends WorldObject {
 	private final static int height = 50;
 	
 	private int red;
-	private final int random = (int) (Math.random() * 1000);
+	private final int random = (int) (Math.random() * 1000) - 500;
 	
 	public Block(int id, Location location, Object[] customData) {
-		super(id, location, getBounds(width, height), customData);
+		super(id, location, newBounds(width, height), customData);
+		
+		//rotate(45);
 		
 	}
 	
@@ -39,7 +41,13 @@ public class Block extends WorldObject {
 	@Override
 	public void draw(Graphics g, int x, int y) {
 		g.setColor(new Color(red, 100, 100));
-		g.fillRect(x - (width/2), y - (height/2), width, height);
+		
+		g.fillRect(x - (width / 2), y - (height / 2), width, height);
+		
+		g.setColor(Color.BLUE);
+		for (Location loc : getBounds()) {
+			g.fillOval((int) loc.getX() - 5, (int) loc.getY() - 5, 10, 10);
+		}
 	}
 	
 	@Override

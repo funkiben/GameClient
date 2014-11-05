@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -95,6 +96,8 @@ public class GameWindow extends JFrame {
 	
 	public void drawObjects(Graphics g) {
 		
+		Graphics2D g2d = (Graphics2D) g;
+		
 		fpsCounter++;
 		int curSec = Calendar.getInstance().get(Calendar.SECOND);
 		if (curSec != prevSec) {
@@ -126,8 +129,14 @@ public class GameWindow extends JFrame {
 			
 			if (x + o.getLowestXPoint() < getWidth() && x + o.getHighestXPoint() > 0 && y + o.getLowestYPoint() < getHeight() && y + o.getHighestYPoint() > 0) {
 				
-				o.draw(g, (int) x, (int) y);
+				g2d.translate(x, y);
+				g2d.rotate(Math.toRadians(o.getRotation()));
+				
+				o.draw(g, 0, 0);
 				draws++;
+				
+				g2d.rotate(-Math.toRadians(o.getRotation()));
+				g2d.translate(-x, -y);
 				
 			}
 			

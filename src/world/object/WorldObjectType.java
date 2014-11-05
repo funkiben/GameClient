@@ -7,6 +7,7 @@ public enum WorldObjectType {
 	PLAYER  			(0x001, Player.class),
 	BLOCK  				(0x002, Block.class),
 	CONTROLLED_PLAYER 	(0x003, ThisPlayer.class),
+	ARROW				(0x004, Arrow.class)
 	;
 	
 	

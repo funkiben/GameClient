@@ -26,6 +26,8 @@ public class ServerMessageListener implements MessageListener {
 		if (object != null) {
 			object.setLocation(location);
 			object.setCustomData(customData);
+			object.onUpdateFromServer();
+			
 		} else {
 			object = WorldObjectType.newInstance(id, typeId, location, customData);
 			

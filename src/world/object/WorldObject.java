@@ -18,6 +18,7 @@ public abstract class WorldObject implements Drawable {
 	private final int highestX;
 	private final int highestY;
 	private Object[] customData;
+	private double rotation = 0;
 	
 	public WorldObject(int id, Location location, Location[] bounds, Object[] customData) {
 		this.id = id;
@@ -97,6 +98,27 @@ public abstract class WorldObject implements Drawable {
 	
 	public void setCustomData(Object[] data) {
 		customData = data;
+	}
+	
+	public void rotateBounds(double deg) {
+		for (int i = 0; i < bounds.length; i++) {
+			bounds[i] = bounds[i].rotate(deg);
+		}
+	}
+	
+	public void rotate(double deg) {
+		rotation += deg;
+		rotateBounds(deg);
+	}
+	
+	public void setRotation(double deg) {
+		rotateBounds(-rotation);
+		rotation = deg;
+		rotateBounds(rotation);
+	}
+	
+	public double getRotation() {
+		return rotation;
 	}
 	
 	public boolean contains(Location test) {
