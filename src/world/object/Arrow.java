@@ -28,8 +28,8 @@ public class Arrow extends WorldObject {
 		
 		velocity = (Location) getCustomData()[0];
 		
-		//angle = new Location(0, 0).angleBetween(velocity);
-		//rotate(angle);
+		angle = new Location(0, 0).angleBetween(velocity) + 90;
+		rotate(angle);
 		
 	}
 	
@@ -54,15 +54,15 @@ public class Arrow extends WorldObject {
 
 	@Override
 	public void onUpdateFromServer() {
-//		Location velocity = (Location) getCustomData()[0];
-//		
-//		if (!velocity.equals(this.velocity)) {
-//			this.velocity = velocity;
-//			
-//			angle = new Location(0, 0).angleBetween(velocity);
-//			
-//			setRotation(angle);
-//		}
+		Location velocity = (Location) getCustomData()[0];
+		
+		if (!velocity.equals(this.velocity)) {
+			this.velocity = velocity;
+			
+			angle = new Location(0, 0).angleBetween(velocity);
+			
+			setRotation(angle);
+		}
 	}
 
 }
