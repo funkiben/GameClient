@@ -7,15 +7,15 @@ import net.funkitech.util.Location;
 
 public class Arrow extends WorldObject {
 	
-	private final static int width  = 7;
+	private final static int width  = 6;
 	private final static int height = 40;
 	
 	private static Location[] newBounds() {
 		return new Location[] {
-				new Location(width/2, height/2),
-				new Location(-width/2, height/2),
-				new Location(-width/2, -height/2),
-				new Location(width/2, -height/2)
+				new Location(width/2, 0),
+				new Location(-width/2, 0),
+				new Location(-width/2, height),
+				new Location(width/2, height)
 		};
 	}
 	
@@ -43,8 +43,10 @@ public class Arrow extends WorldObject {
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
-		g.setColor(Color.GREEN);
-		g.fillRect(x - (width / 2), y - (height / 2), width, height);
+		g.setColor(Color.BLACK);
+		g.drawLine(x, y, x, y + height);
+		g.drawLine(x, y + height, x - width / 2 , y + height - 10);
+		g.drawLine(x, y + height, x + width / 2, y + height - 10);
 	}
 
 	@Override
