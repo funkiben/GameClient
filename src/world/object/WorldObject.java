@@ -10,6 +10,9 @@ import net.funkitech.util.Location;
 
 public abstract class WorldObject implements Drawable {
 	
+	private static final float smoothMovementDeltaDivisor = 2.65f;
+	
+	
 	private final int id;
 	private final Location location;
 	private final Location[] bounds;
@@ -19,6 +22,8 @@ public abstract class WorldObject implements Drawable {
 	private final int highestY;
 	private Object[] customData;
 	private double rotation = 0;
+	private Location smTarget = new Location(0, 0);
+	private Location smDelta = new Location(0, 0);
 	
 	public WorldObject(int id, Location location, Location[] bounds, Object[] customData) {
 		this.id = id;
@@ -62,6 +67,27 @@ public abstract class WorldObject implements Drawable {
 
 	public void move(Location delta) {
 		location.set(location.add(delta));
+	}
+	
+	public void smoothMove(Location delta) {
+		smTarget = location.add(delta);
+		smDelta = delta;
+	}
+	
+	public void smoothMoveTo(Location target) {
+		smTarget = target;
+		smDelta = target.subtract(location);
+	}
+	
+	public void doSmoothMoving() {
+		if (!smDelta.isZero()) {
+			if (smTarget.distanceSqrt(location) < smDelta.lengthSqrt()) {
+				setLocation(smTarget);
+				smDelta.set(0, 0);
+			} else {
+				move(smDelta.divide(smoothMovementDeltaDivisor));
+			}
+		}
 	}
 
 	public double getX() {

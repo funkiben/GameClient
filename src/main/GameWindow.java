@@ -121,6 +121,7 @@ public class GameWindow extends JFrame {
 			WorldObject o = iter.next();
 			
 			if (!(o instanceof ThisPlayer)) {
+				o.doSmoothMoving();
 				o.update(frames);
 			}
 			

@@ -90,6 +90,10 @@ public class Location implements java.io.Serializable {
 		return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 	}
 	
+	public double lengthSqrt() {
+		return Math.pow(x, 2) + Math.pow(y, 2);
+	}
+	
 	public Location normalize() {
 		double length = length();
 
