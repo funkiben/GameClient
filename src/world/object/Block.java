@@ -44,10 +44,10 @@ public class Block extends WorldObject {
 		
 		g.fillRect(x - (width / 2), y - (height / 2), width, height);
 		
-		g.setColor(Color.BLUE);
-		for (Location loc : getBounds()) {
-			g.fillOval((int) loc.getX() - 5, (int) loc.getY() - 5, 10, 10);
-		}
+//		g.setColor(Color.BLUE);
+//		for (Location loc : getBounds()) {
+//			g.fillOval((int) loc.getX() - 5, (int) loc.getY() - 5, 10, 10);
+//		}
 	}
 	
 	@Override
