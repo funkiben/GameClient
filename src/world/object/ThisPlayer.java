@@ -20,7 +20,7 @@ public class ThisPlayer extends Player implements KeyListener, MouseListener, Mo
 	
 	private final FoV fov;
 	private Direction direction = null;
-	private final Location mousePosition = new Location(0, 0);
+	private double directionAngle = 0;
 	
 	public ThisPlayer(int id, Location location, Object[] customData) {
 		super(id, location, customData);
@@ -58,15 +58,12 @@ public class ThisPlayer extends Player implements KeyListener, MouseListener, Mo
 		
 		g.setColor(Color.BLACK);
 		
-		double angle = new Location(0, 0).angleBetween(getLocationOnScreen().subtract(mousePosition)) + 90;
-		
-		Location loc1 = new Location(0, -40).rotate(angle).add(x, y);
-		Location loc2 = new Location(-10, -30).rotate(angle).add(x, y);
-		Location loc3 = new Location(10, -30).rotate(angle).add(x, y);
+		Location loc1 = new Location(0, -40).rotate(directionAngle).add(x, y);
+		Location loc2 = new Location(-10, -30).rotate(directionAngle).add(x, y);
+		Location loc3 = new Location(10, -30).rotate(directionAngle).add(x, y);
 		
 		g.drawLine((int) loc1.getX(), (int) loc1.getY(), (int) loc2.getX(), (int) loc2.getY());
 		g.drawLine((int) loc1.getX(), (int) loc1.getY(), (int) loc3.getX(), (int) loc3.getY());
-		
 		
 	}
 	
@@ -75,9 +72,7 @@ public class ThisPlayer extends Player implements KeyListener, MouseListener, Mo
 			return new Location(0, 0);
 		}
 		
-		double angle = new Location(0, 0).angleBetween(getLocationOnScreen().subtract(mousePosition)) + 90;
-		
-		return direction.getDelta().rotate(angle);
+		return direction.getDelta().rotate(directionAngle);
 	}
 
 	@Override
@@ -115,7 +110,7 @@ public class ThisPlayer extends Player implements KeyListener, MouseListener, Mo
 	
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		mousePosition.set(e.getX(), e.getY());
+		directionAngle = new Location(0, 0).angleBetween(getLocationOnScreen().subtract(e.getX(), e.getY())) + 90;
 	}
 	
 	

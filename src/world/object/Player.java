@@ -10,7 +10,7 @@ import net.funkitech.util.Location;
 public class Player extends WorldObject {
 
 	private static final Location[] bounds;
-	private static final int radius = 20;
+	protected static final int radius = 20;
 
 	static {
 		int vertices = 10;
@@ -31,7 +31,6 @@ public class Player extends WorldObject {
 		super(id, location, bounds, customData);
 		
 		this.name = (String) customData[0];
-		
 		
 	}
 
@@ -60,6 +59,7 @@ public class Player extends WorldObject {
 		
 		int strSize = g.getFontMetrics().stringWidth(getName());
 		g.drawString(getName(), x - (strSize / 2), y - radius - 6);
+		
 	}
 
 	@Override

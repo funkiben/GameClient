@@ -11,8 +11,8 @@ import net.funkitech.util.server.messaging.MessagingSocket;
 
 public class Main {
 	
-	public static final int serverPort = 24424; //12345
-	public static final String serverAddress = "192.168.1.25"; //71.174.248.94
+	public static final int serverPort = 12345; //12345
+	public static final String serverAddress = "71.174.248.94"; //71.174.248.94
 	
 	public static MessagingSocket socket;
 	public static final MessageListeningManager msgListeningMg = new MessageListeningManager();
