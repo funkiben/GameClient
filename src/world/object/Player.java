@@ -17,7 +17,7 @@ public class Player extends WorldObject {
 		bounds = new Location[vertices];
 
 		for (int i = 1; i <= vertices; i++) {
-			Location loc = new Location(0, radius / 2).rotate((double) i / vertices * 360.0);
+			Location loc = new Location(0, radius).rotate((double) i / vertices * 360.0);
 			bounds[i - 1] = loc;
 		}
 	}

@@ -1,5 +1,6 @@
 package world.object;
 
+import java.awt.geom.AffineTransform;
 import java.util.Arrays;
 
 import main.Drawable;
@@ -24,6 +25,7 @@ public abstract class WorldObject implements Drawable {
 	private double rotation = 0;
 	private Location smTarget = new Location(0, 0);
 	private Location smDelta = new Location(0, 0);
+	private final AffineTransform transform = new AffineTransform();
 	
 	public WorldObject(int id, Location location, Location[] bounds, Object[] customData) {
 		this.id = id;
@@ -124,6 +126,10 @@ public abstract class WorldObject implements Drawable {
 	
 	public void setCustomData(Object[] data) {
 		customData = data;
+	}
+	
+	public AffineTransform getTransform() {
+		return transform;
 	}
 	
 	public void rotateBounds(double deg) {

@@ -3,6 +3,7 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -130,23 +131,29 @@ public class GameWindow extends JFrame {
 			
 			if (x + o.getLowestXPoint() < getWidth() && x + o.getHighestXPoint() > 0 && y + o.getLowestYPoint() < getHeight() && y + o.getHighestYPoint() > 0) {
 				
+				g2d.setTransform(o.getTransform());
 				g2d.translate(x, y);
 				g2d.rotate(Math.toRadians(o.getRotation()));
+				
 				
 				o.draw(g, 0, 0);
 				draws++;
 				
-				g2d.rotate(-Math.toRadians(o.getRotation()));
-				g2d.translate(-x, -y);
+				
+//				g.setColor(Color.BLUE);
+//				for (Location loc : o.getBounds()) {
+//					g.fillOval((int) (x + loc.getX() - 5), (int) (y + loc.getY() - 5), 10, 10);
+//				}
 				
 			}
 			
 		}
 		isDrawing = false;
 		
-		
-		
 		frames++;
+		
+
+		g2d.setTransform(new AffineTransform());
 		
 		g.setColor(Color.black);
 		g.drawString("Draws: " + draws, 10, 15);

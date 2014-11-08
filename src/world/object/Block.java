@@ -26,8 +26,6 @@ public class Block extends WorldObject {
 	public Block(int id, Location location, Object[] customData) {
 		super(id, location, newBounds(width, height), customData);
 		
-		//rotate(45);
-		
 	}
 	
 	public int getWidth() {
@@ -43,11 +41,6 @@ public class Block extends WorldObject {
 		g.setColor(new Color(red, 100, 100));
 		
 		g.fillRect(x - (width / 2), y - (height / 2), width, height);
-		
-//		g.setColor(Color.BLUE);
-//		for (Location loc : getBounds()) {
-//			g.fillOval((int) loc.getX() - 5, (int) loc.getY() - 5, 10, 10);
-//		}
 	}
 	
 	@Override
