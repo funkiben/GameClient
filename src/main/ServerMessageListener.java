@@ -24,7 +24,6 @@ public class ServerMessageListener implements MessageListener {
 		WorldObject object = Main.world.getObject(id);
 
 		if (object != null) {
-			//object.setLocation(location);
 			object.smoothMoveTo(location);
 			object.setCustomData(customData);
 			object.onUpdateFromServer();
@@ -48,6 +47,11 @@ public class ServerMessageListener implements MessageListener {
 	public void disconnect(String reason) {
 		Main.warningMsg("Disconnected from server", reason);
 		Main.close();
+	}
+	
+	@MessageHandler(names = "chat")
+	public void chat(String msg) {
+		Main.gameWindow.chatWindow.addEntry(msg);
 	}
 
 }

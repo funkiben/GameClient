@@ -56,6 +56,9 @@ public class GameWindow extends JFrame {
 	private static final long serialVersionUID = -2048254827556094505L;
 	
 	
+
+	public final ChatWindow chatWindow;
+	
 	private static final int DRAW_INTERVALS = 30;
 	
 	private final World world;
@@ -82,6 +85,8 @@ public class GameWindow extends JFrame {
 		setVisible(true);
 		
 		new DrawThread(this, DRAW_INTERVALS);
+		
+		chatWindow = new ChatWindow();
 	}
 	
 	public FoV getFoV() {
