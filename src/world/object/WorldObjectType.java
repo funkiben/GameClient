@@ -5,9 +5,13 @@ import net.funkitech.util.Location;
 public enum WorldObjectType {
 	
 	PLAYER  			(0x001, Player.class),
-	BLOCK  				(0x002, Block.class),
-	CONTROLLED_PLAYER 	(0x003, ThisPlayer.class),
-	ARROW				(0x004, Arrow.class)
+	CONTROLLED_PLAYER 	(0x002, ThisPlayer.class),
+	ARROW				(0x003, Arrow.class),
+	
+	TILE_COBBLE			(0x010, CobbleTile.class),
+	
+	TREE				(0x020, Tree.class),
+	
 	;
 	
 	

@@ -29,6 +29,7 @@ public class ServerMessageListener implements MessageListener {
 			object.onUpdateFromServer();
 			
 		} else {
+			
 			object = WorldObjectType.newInstance(id, typeId, location, customData);
 			
 			while (GameWindow.isDrawing) {
@@ -47,11 +48,6 @@ public class ServerMessageListener implements MessageListener {
 	public void disconnect(String reason) {
 		Main.warningMsg("Disconnected from server", reason);
 		Main.close();
-	}
-	
-	@MessageHandler(names = "chat")
-	public void chat(String msg) {
-		Main.gameWindow.chatWindow.addEntry(msg);
 	}
 
 }

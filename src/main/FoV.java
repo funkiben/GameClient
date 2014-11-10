@@ -29,6 +29,10 @@ public class FoV {
 		return contains(loc.getX(), loc.getY());
 	}
 	
+	public Location getLocation() {
+		return location;
+	};
+	
 	public boolean contains(double x, double y) {
         double x0 = getX();
         double y0 = getY();

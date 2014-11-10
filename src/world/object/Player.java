@@ -10,16 +10,10 @@ import net.funkitech.util.Location;
 public class Player extends WorldObject {
 
 	private static final Location[] bounds;
-	protected static final int radius = 20;
+	protected static final int radius = 10;
 
 	static {
-		int vertices = 10;
-		bounds = new Location[vertices];
-
-		for (int i = 1; i <= vertices; i++) {
-			Location loc = new Location(0, radius).rotate((double) i / vertices * 360.0);
-			bounds[i - 1] = loc;
-		}
+		bounds = getCircularBounds(radius, 10);
 	}
 	
 	
@@ -31,6 +25,7 @@ public class Player extends WorldObject {
 		super(id, location, bounds, customData);
 		
 		this.name = (String) customData[0];
+		
 		
 	}
 
@@ -69,7 +64,7 @@ public class Player extends WorldObject {
 
 	@Override
 	public void update(int frames) {
-		
+		setZLevel((int) getLocationOnScreen().getY());
 	}
 
 	@Override

@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,7 +23,7 @@ public class GameWindow extends JFrame {
 	
 	public static final int chunkSize = 800;
 	
-	private static int toChunkX(double x) {
+	public static int toChunkX(double x) {
 		if (x <= 0) {
 			x++;
 		}
@@ -34,7 +37,7 @@ public class GameWindow extends JFrame {
 		return cx;
 	}
 	
-	private static int toChunkY(double y) {
+	public static int toChunkY(double y) {
 		if (y <= 0) {
 			y++;
 		}
@@ -56,9 +59,6 @@ public class GameWindow extends JFrame {
 	private static final long serialVersionUID = -2048254827556094505L;
 	
 	
-
-	public final ChatWindow chatWindow;
-	
 	private static final int DRAW_INTERVALS = 30;
 	
 	private final World world;
@@ -68,6 +68,8 @@ public class GameWindow extends JFrame {
 	private int fps = 0;
 	private int fpsCounter = 0;
 	private int prevSec;
+	
+	private final List<WorldObject> inZOrder = new ArrayList<WorldObject>();
 	
 	public static volatile boolean isDrawing = false;
 	
@@ -86,7 +88,6 @@ public class GameWindow extends JFrame {
 		
 		new DrawThread(this, DRAW_INTERVALS);
 		
-		chatWindow = new ChatWindow();
 	}
 	
 	public FoV getFoV() {
@@ -119,12 +120,22 @@ public class GameWindow extends JFrame {
 		
 		isDrawing = true;
 		
-		Iterator<WorldObject> iter = world.getObjects().iterator();
-		while (iter.hasNext()) {
+		inZOrder.clear();
+		
+		inZOrder.addAll(world.getObjects());
+		
+		Collections.sort(inZOrder, new Comparator<WorldObject>() {
+
+			@Override
+			public int compare(WorldObject o1, WorldObject o2) {
+				return o1.getZLevel() - o2.getZLevel();
+			}
+			
+		});
+		
+		for (WorldObject o : inZOrder) {
 			
 			objects++;
-			
-			WorldObject o = iter.next();
 			
 			if (!(o instanceof ThisPlayer)) {
 				o.doSmoothMoving();
@@ -140,15 +151,9 @@ public class GameWindow extends JFrame {
 				g2d.translate(x, y);
 				g2d.rotate(Math.toRadians(o.getRotation()));
 				
-				
 				o.draw(g, 0, 0);
 				draws++;
 				
-				
-//				g.setColor(Color.BLUE);
-//				for (Location loc : o.getBounds()) {
-//					g.fillOval((int) (x + loc.getX() - 5), (int) (y + loc.getY() - 5), 10, 10);
-//				}
 				
 			}
 			

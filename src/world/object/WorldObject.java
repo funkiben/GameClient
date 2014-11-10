@@ -11,6 +11,36 @@ import net.funkitech.util.Location;
 
 public abstract class WorldObject implements Drawable {
 	
+	public static Location[] getSquareBounds(int width, int height) {
+		return new Location[] {
+				new Location(0, 0),
+				new Location(width, 0),
+				new Location(width, height),
+				new Location(0, height)
+		};
+	}
+	
+	public static Location[] getCenteredSquareBounds(int width, int height) {
+		return new Location[] {
+				new Location(width/2, height/2),
+				new Location(-width/2, height/2),
+				new Location(-width/2, -height/2),
+				new Location(width/2, -height/2)
+		};
+	}
+	
+	public static Location[] getCircularBounds(int radius, int points) {
+		Location[] bounds = new Location[points];
+
+		for (int i = 1; i <= points; i++) {
+			Location loc = new Location(0, radius).rotate((double) i / points * 360.0);
+			bounds[i - 1] = loc;
+		}
+		
+		return bounds;
+	}
+	
+	
 	private static final float smoothMovementDeltaDivisor = 2.65f;
 	
 	
@@ -26,6 +56,7 @@ public abstract class WorldObject implements Drawable {
 	private Location smTarget = new Location(0, 0);
 	private Location smDelta = new Location(0, 0);
 	private final AffineTransform transform = new AffineTransform();
+	private int zLevel = 0;
 	
 	public WorldObject(int id, Location location, Location[] bounds, Object[] customData) {
 		this.id = id;
@@ -130,6 +161,14 @@ public abstract class WorldObject implements Drawable {
 	
 	public AffineTransform getTransform() {
 		return transform;
+	}
+	
+	public int getZLevel() {
+		return zLevel;
+	}
+	
+	public void setZLevel(int z) {
+		zLevel = z;
 	}
 	
 	public void rotateBounds(double deg) {
