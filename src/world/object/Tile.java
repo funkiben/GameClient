@@ -8,6 +8,8 @@ public abstract class Tile extends ImageObject {
 
 	public Tile(int id, Location location, Object[] customData) {
 		super(id, location, getSquareBounds((Integer) customData[0], (Integer) customData[1]), customData);
+		
+		setAutoSetZLevel(false);
 		setZLevel(-10);
 		
 		setImageWidth((Integer) customData[0]);

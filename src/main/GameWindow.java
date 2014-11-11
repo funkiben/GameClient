@@ -116,9 +116,9 @@ public class GameWindow extends JFrame {
 		int objects = 0;
 		int draws = 0;
 		
-		Main.player.update(frames);
-		
 		isDrawing = true;
+		
+		Main.player.update(frames);
 		
 		inZOrder.clear();
 		
@@ -137,13 +137,17 @@ public class GameWindow extends JFrame {
 			
 			objects++;
 			
+			double x = (o.getX() - (fov.getX() - fov.getSize() / 2.0)) / fov.getSize() * getWidth();
+			double y = (o.getY() - (fov.getY() - fov.getSize() / 2.0)) / fov.getSize() * getHeight();
+			
 			if (!(o instanceof ThisPlayer)) {
 				o.doSmoothMoving();
 				o.update(frames);
 			}
 			
-			double x = (o.getX() - (fov.getX() - fov.getSize() / 2.0)) / fov.getSize() * getWidth();
-			double y = (o.getY() - (fov.getY() - fov.getSize() / 2.0)) / fov.getSize() * getHeight();
+			if (o.canAutoSetZLevel()) {
+				o.setZLevel((int) (y + o.getHighestYPoint() + 1000));
+			}
 			
 			if (x + o.getLowestXPoint() < getWidth() && x + o.getHighestXPoint() > 0 && y + o.getLowestYPoint() < getHeight() && y + o.getHighestYPoint() > 0) {
 				
@@ -173,7 +177,7 @@ public class GameWindow extends JFrame {
 		int cx = (int) (toChunkX(Main.player.getLocation().getX()));
 		int cy = (int) (toChunkY(Main.player.getLocation().getY()));
 		g.drawString("Chunk: " + cx + "," + cy, 10, 75);
-		
+		g.drawString("Z: " + Main.player.getZLevel(), 10, 90);
 		
 		
 	}

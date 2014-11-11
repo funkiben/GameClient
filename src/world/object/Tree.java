@@ -33,7 +33,7 @@ public class Tree extends ImageObject {
 
 	@Override
 	public void update(int frames) {
-		setZLevel((int) getLocationOnScreen().getY() + getImageHeight());
+		
 	}
 
 	@Override

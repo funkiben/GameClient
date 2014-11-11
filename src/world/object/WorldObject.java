@@ -41,7 +41,7 @@ public abstract class WorldObject implements Drawable {
 	}
 	
 	
-	private static final float smoothMovementDeltaDivisor = 2.65f;
+	private static final float smoothMovementDeltaDivisor = 2.60f;
 	
 	
 	private final int id;
@@ -57,6 +57,8 @@ public abstract class WorldObject implements Drawable {
 	private Location smDelta = new Location(0, 0);
 	private final AffineTransform transform = new AffineTransform();
 	private int zLevel = 0;
+	private boolean solid = false;
+	private boolean autoSetZLevel = true;
 	
 	public WorldObject(int id, Location location, Location[] bounds, Object[] customData) {
 		this.id = id;
@@ -171,6 +173,22 @@ public abstract class WorldObject implements Drawable {
 		zLevel = z;
 	}
 	
+	public boolean isSolid() {
+		return solid;
+	}
+	
+	public void setSolid(boolean solid) {
+		this.solid = solid;
+	}
+	
+	public void setAutoSetZLevel(boolean b) {
+		autoSetZLevel = b;
+	}
+	
+	public boolean canAutoSetZLevel() {
+		return autoSetZLevel;
+	}
+	
 	public void rotateBounds(double deg) {
 		for (int i = 0; i < bounds.length; i++) {
 			bounds[i] = bounds[i].rotate(deg);
@@ -211,6 +229,16 @@ public abstract class WorldObject implements Drawable {
 	public boolean contains(WorldObject obj) {
 		for (Location loc : obj.getBounds()) {
 			if (contains(loc.add(obj.getLocation()))) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean contains(WorldObject obj, Location offset) {
+		for (Location loc : obj.getBounds()) {
+			if (contains(loc.add(obj.getLocation().add(offset)))) {
 				return true;
 			}
 		}

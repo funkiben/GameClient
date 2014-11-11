@@ -17,7 +17,7 @@ public enum WorldObjectType {
 	
 	private final int id;
 	private final Class<? extends WorldObject> clazz;
-	
+
 	WorldObjectType(int id, Class<? extends WorldObject> clazz) {
 		this.id = id;
 		this.clazz = clazz;
@@ -48,6 +48,15 @@ public enum WorldObjectType {
 			}
 		}
 		
+		return null;
+	}
+	
+	public static WorldObjectType getTypeOf(WorldObject obj) {
+		for (WorldObjectType t : WorldObjectType.values()) {
+			if (t.getWorldObjectClass() == obj.getClass()) {
+				return t;
+			}
+		}
 		return null;
 	}
 	

@@ -26,7 +26,6 @@ public class Player extends WorldObject {
 		
 		this.name = (String) customData[0];
 		
-		
 	}
 
 	public String getName() {
@@ -34,11 +33,17 @@ public class Player extends WorldObject {
 	}
 	
 	public boolean touchingOther() {
-		for (Player player : Main.world.getPlayers()) {
+		for (WorldObject player : Main.world.getObjects(Player.class)) {
 			if (player != this) {
 				if (contains(player)) {
 					return true;
 				}
+			}
+		}
+		
+		if (Main.player != this) {
+			if (contains(Main.player)) {
+				return true;
 			}
 		}
 		
@@ -64,7 +69,7 @@ public class Player extends WorldObject {
 
 	@Override
 	public void update(int frames) {
-		setZLevel((int) getLocationOnScreen().getY());
+		
 	}
 
 	@Override

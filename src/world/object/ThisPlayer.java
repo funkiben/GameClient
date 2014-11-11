@@ -16,7 +16,7 @@ import net.funkitech.util.server.messaging.Message;
 
 public class ThisPlayer extends Player implements KeyListener, MouseListener, MouseMotionListener {
 	
-	public static final float speed = 10f;
+	public static final float speed = 15f;
 	
 	private final FoV fov;
 	private Direction direction = null;
@@ -48,10 +48,30 @@ public class ThisPlayer extends Player implements KeyListener, MouseListener, Mo
 	
 	@Override
 	public void update(int frames) {
-		setZLevel((int) getLocationOnScreen().getY());
 		
 		if (!getDelta().isZero()) {
-			move(getDelta());
+			
+			Location delta = getDelta();
+			
+			Location deltaX = new Location(delta.getX(), 0);
+			Location deltaY = new Location(0, delta.getY());
+			
+			for (WorldObject object : Main.world.getObjects()) {
+				if (object.isSolid() && object != this) {
+					
+					if (object.contains(this, deltaX)) {
+						delta.setX(0);
+					}
+					
+					if (object.contains(this, deltaY)) {
+						delta.setY(0);
+					}
+					
+				}
+			}
+			
+			
+			move(delta);
 		}
 		
 //		int cx = GameWindow.toChunkX(getX());
@@ -81,7 +101,6 @@ public class ThisPlayer extends Player implements KeyListener, MouseListener, Mo
 		}
 		
 		return direction.getDelta().rotate(directionAngle);
-		//return direction.getDelta();
 	}
 
 	@Override
