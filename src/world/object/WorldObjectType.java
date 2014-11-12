@@ -9,6 +9,7 @@ public enum WorldObjectType {
 	ARROW				(0x003, Arrow.class),
 	
 	TILE_COBBLE			(0x010, CobbleTile.class),
+	TILE_WATER			(0x011, WaterTile.class),
 	
 	TREE				(0x020, Tree.class),
 	
