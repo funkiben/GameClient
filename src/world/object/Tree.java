@@ -7,12 +7,11 @@ import net.funkitech.util.Location;
 
 public class Tree extends ImageObject {
 	
-	private static final BufferedImage imgs[] = new BufferedImage[4];
+	private static final BufferedImage imgs[] = new BufferedImage[2];
 	
 	static {
-		for (int i = 0; i < 4; i++) {
-			imgs[i] = loadImage("pack1/items/Tree (" + (i + 1) + ").png");
-		}
+		imgs[0] = loadImage("pack1/items/Tree (1).png");
+		imgs[1] = loadImage("pack1/items/Tree (2).png");
 	}
 	
 	public Tree(int id, Location location, Object[] customData) {
@@ -23,6 +22,8 @@ public class Tree extends ImageObject {
 		
 		setImageWidth((Integer) customData[0]);
 		setImageHeight((Integer) customData[1]);
+		
+		// TODO - position tree better
 		
 	}
 

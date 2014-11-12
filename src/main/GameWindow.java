@@ -162,6 +162,7 @@ public class GameWindow extends JFrame {
 			}
 			
 		}
+		
 		isDrawing = false;
 		
 		frames++;
@@ -177,7 +178,6 @@ public class GameWindow extends JFrame {
 		int cx = (int) (toChunkX(Main.player.getLocation().getX()));
 		int cy = (int) (toChunkY(Main.player.getLocation().getY()));
 		g.drawString("Chunk: " + cx + "," + cy, 10, 75);
-		g.drawString("Z: " + Main.player.getZLevel(), 10, 90);
 		
 		
 	}
