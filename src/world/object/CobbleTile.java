@@ -1,4 +1,4 @@
-package world.object.tile;
+package world.object;
 
 import java.awt.image.BufferedImage;
 

@@ -1,8 +1,7 @@
-package world.object.tile;
+package world.object;
 
 import java.awt.Graphics;
 
-import world.object.ImageObject;
 import net.funkitech.util.Location;
 
 public abstract class Tile extends ImageObject {
