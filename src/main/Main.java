@@ -12,7 +12,11 @@ import net.funkitech.util.server.messaging.MessagingSocket;
 public class Main {
 	
 	public static final int serverPort = 12345; //12345
+<<<<<<< HEAD
 	public static final String serverAddress = "localhost"; //71.174.248.94
+=======
+	public static final String serverAddress = "71.174.248.94"; //71.174.248.94
+>>>>>>> FETCH_HEAD
 	
 	public static MessagingSocket socket;
 	public static final MessageListeningManager msgListeningMg = new MessageListeningManager();
