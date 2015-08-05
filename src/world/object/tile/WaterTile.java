@@ -1,4 +1,4 @@
-package world.object;
+package world.object.tile;
 
 import java.awt.image.BufferedImage;
 
@@ -6,16 +6,23 @@ import net.funkitech.util.Location;
 
 public class WaterTile extends Tile {
 	
-	private static final BufferedImage img;
+private final static BufferedImage[] imgs = new BufferedImage[10];
 	
 	static {
-		img = loadImage("pack1/water/Water (1).png");
+		try {
+			for(int i = 0; i < 10; i++) {
+				imgs[i] = loadImage("pack1/water/Water (" + (i + 1) + ").png");
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public WaterTile(int id, Location location, Object[] customData) {
 		super(id, location, customData);
 		
-		setImage(img);
+		setImage(imgs[(Integer) customData[2]]);
 		setSolid(true);
 		
 	}

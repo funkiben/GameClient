@@ -1,5 +1,6 @@
 package world.object;
 
+import world.object.tile.*;
 import net.funkitech.util.Location;
 
 public enum WorldObjectType {
@@ -10,6 +11,7 @@ public enum WorldObjectType {
 	
 	TILE_COBBLE			(0x010, CobbleTile.class),
 	TILE_WATER			(0x011, WaterTile.class),
+	TILE_GRASS			(0x012, GrassTile.class),
 	
 	TREE				(0x020, Tree.class),
 	
