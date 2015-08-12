@@ -64,6 +64,7 @@ public class GameWindow extends JFrame {
 	private final World world;
 	private final FoV fov;
 	private int frames = 0;
+	private boolean zOrderChange = true;
 	
 	private int fps = 0;
 	private int fpsCounter = 0;
@@ -120,18 +121,22 @@ public class GameWindow extends JFrame {
 		
 		Main.player.update(frames);
 		
-		inZOrder.clear();
-		
-		inZOrder.addAll(world.getObjects());
-		
-		Collections.sort(inZOrder, new Comparator<WorldObject>() {
-
-			@Override
-			public int compare(WorldObject o1, WorldObject o2) {
-				return o1.getZLevel() - o2.getZLevel();
-			}
+		if (zOrderChange) {
+			inZOrder.clear();
 			
-		});
+			inZOrder.addAll(world.getObjects());
+			
+			Collections.sort(inZOrder, new Comparator<WorldObject>() {
+	
+				@Override
+				public int compare(WorldObject o1, WorldObject o2) {
+					return o1.getZLevel() - o2.getZLevel();
+				}
+				
+			});
+			
+			zOrderChange = false;
+		}
 		
 		for (WorldObject o : inZOrder) {
 			
@@ -141,12 +146,17 @@ public class GameWindow extends JFrame {
 			double y = (o.getY() - (fov.getY() - fov.getSize() / 2.0)) / fov.getSize() * getHeight();
 			
 			if (!(o instanceof ThisPlayer)) {
-				o.doSmoothMoving();
 				o.update(frames);
 			}
 			
+			o.doSmoothMoving();
+			
 			if (o.canAutoSetZLevel()) {
-				o.setZLevel((int) (y + o.getHighestYPoint() + 1000));
+				int newZ = (int) (y + o.getHighestYPoint() + 1000);
+				
+				if (newZ != o.getZLevel()) {
+					o.setZLevel((int) (y + o.getHighestYPoint() + 1000));
+				}
 			}
 			
 			if (x + o.getLowestXPoint() < getWidth() && x + o.getHighestXPoint() > 0 && y + o.getLowestYPoint() < getHeight() && y + o.getHighestYPoint() > 0) {
@@ -181,7 +191,10 @@ public class GameWindow extends JFrame {
 		
 		
 	}
-
+	
+	public void ZOrderChange() {
+		zOrderChange = true;
+	}
 	
 	private class DrawCanvas extends JPanel {
 		

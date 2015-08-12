@@ -6,11 +6,11 @@ import net.funkitech.util.Location;
 
 public class WaterTile extends Tile {
 	
-private final static BufferedImage[] imgs = new BufferedImage[10];
+	private final static BufferedImage[] imgs = new BufferedImage[56];
 	
 	static {
 		try {
-			for(int i = 0; i < 10; i++) {
+			for(int i = 0; i < 56; i++) {
 				imgs[i] = loadImage("pack1/water/Water (" + (i + 1) + ").png");
 				
 			}

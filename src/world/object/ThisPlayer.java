@@ -34,8 +34,19 @@ public class ThisPlayer extends Player implements KeyListener, MouseListener, Mo
 		return fov;
 	}
 	
-	@Override
-	public void move(Location delta) {
+//	@Override
+//	public void move(Location delta) {
+//		super.move(delta);
+//		
+//		try {
+//			Main.socket.sendMessage(new Message("move", delta));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
+	
+	public void thisPlayerMove(Location delta) {
 		super.move(delta);
 		
 		try {
@@ -71,13 +82,9 @@ public class ThisPlayer extends Player implements KeyListener, MouseListener, Mo
 			}
 			
 			
-			move(delta);
+			thisPlayerMove(delta);
 		}
-		
-//		int cx = GameWindow.toChunkX(getX());
-//		int cy = GameWindow.toChunkY(getY());
-//		
-		//fov.getLocation().set(GameWindow.getChunkLocation(cx, cy).add(GameWindow.chunkSize / 2, GameWindow.chunkSize / 2));
+
 	}
 	
 	@Override

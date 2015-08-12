@@ -171,6 +171,13 @@ public abstract class WorldObject implements Drawable {
 	
 	public void setZLevel(int z) {
 		zLevel = z;
+		ZOrderChange();
+	}
+	
+	public void ZOrderChange() {
+		if (Main.gameWindow != null) {
+			Main.gameWindow.ZOrderChange();
+		}
 	}
 	
 	public boolean isSolid() {

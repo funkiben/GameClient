@@ -6,13 +6,12 @@ import net.funkitech.util.Location;
 
 public class CobbleTile extends Tile {
 	
-	private final static BufferedImage[] imgs = new BufferedImage[10];
+	private final static BufferedImage[] imgs = new BufferedImage[110];
 	
 	static {
 		try {
-			for(int i = 0; i < 10; i++) {
+			for(int i = 0; i < 110; i++) {
 				imgs[i] = loadImage("pack2/stone/Stone (" + (i + 1) + ").png");
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -32,6 +32,7 @@ public class World {
 	public void addObject(WorldObject o) {
 		objectMapByType.get(o.getClass()).put(o.getId(), o);
 		objectMap.put(o.getId(), o);
+		o.ZOrderChange();
 	}
 	
 	public boolean removeObject(WorldObject obj) {

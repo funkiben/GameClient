@@ -25,10 +25,8 @@ public abstract class ImageObject extends WorldObject {
 		try {
 			return ImageIO.read(ImageObject.class.getResourceAsStream(path));
 		} catch (IOException e) {
-			e.printStackTrace();
+			return null;
 		}
-		
-		return null;
 	}
 	
 

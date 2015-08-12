@@ -6,13 +6,12 @@ import net.funkitech.util.Location;
 
 public class GrassTile extends Tile {
 
-	private final static BufferedImage[] imgs = new BufferedImage[10];
+	private final static BufferedImage[] imgs = new BufferedImage[108];
 	
 	static {
 		try {
-			for(int i = 0; i < 10; i++) {
+			for(int i = 0; i < 108; i++) {
 				imgs[i] = loadImage("pack1/grass/Grass (" + (i + 1) + ").png");
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
